@@ -2,18 +2,55 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <title>Visualizador 3D de Caixa (Papelão Realista)</title>
+  <title>Cartonagem Rodrigues LTDA</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
   <link rel="stylesheet" href="style.css">
-  
 </head>
 <body>
-  <div id="canvas-wrap"></div>
+  <!-- Header -->
+  <header class="header">
+  <div class="container">
+    <div class="logo">
+      <img src="img/logo.png" alt="Cartonagem Rodrigues" class="logo-img">
+      <span class="logo-text">Cartonagem Rodrigues</span>
+    </div>
+    
+    <button class="menu-toggle" aria-expanded="false" aria-label="Menu">
+      <span class="hamburger"></span>
+    </button>
+    
+    <nav class="nav" id="main-nav">
+      <a href="#visualizador">Visualizador</a>
+      <a href="#produtos">Produtos</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato" class="btn-primary">Contato</a>
+    </nav>
+  </div>
+</header>
 
-  <div id="ui">
-    <h3>Visualizador de Caixa — Papelão</h3>
+  <!-- Banner -->
+  <section class="banner">
+    <div class="container">
+      <h1>Crie sua Caixa de Papelão Personalizada</h1>
+      <p>Visualize em 3D antes de comprar</p>
+      <a href="#visualizador" class="btn-secondary">Experimente Agora</a>
+    </div>
+  </section>
 
-    <label>Largura (mm)</label>
+  <!-- Seção do Visualizador 3D -->
+  <section id="visualizador" class="visualizador-section">
+    <div class="container">
+      <h2>Personalize sua Caixa</h2>
+      <p>Ajuste dimensões, cores e adicione seu logo</p>
+      
+      <div class="visualizador-wrapper">
+        <div id="canvas-wrap"></div>
+        <div id="ui">
+          <!-- Conteúdo da UI do visualizador (mantido igual) -->
+          <h3>Visualizador de Caixa</h3>
+          <label>Largura (mm)</label>
     <input id="input-width" type="number" min="10" value="150">
 
     <label>Comprimento / Profundidade (mm)</label>
@@ -63,18 +100,134 @@
       <button id="export" class="compact">Exportar Screenshot</button>
       <button id="download-dieline" class="compact secondary">Baixar Dieline (simples)</button>
     </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <small style="margin-top:8px;" class="small-muted">
-      Dica: Use PNG com fundo transparente para logos. Se quiser dieline/uv real para impressão, eu gero um .glb UV-unwrapped posteriormente.
-    </small>
-  </div>
+  <!-- Carrossel de Produtos -->
+  <section id="produtos" class="produtos-section">
+    <div class="container">
+      <h2>Nossos Produtos em Destaque</h2>
+        <div class="carrossel">
+            <div class="produto-card">
+                <div class="produto-imagem-container">
+                    <img src="img/caixa-abas" alt="Nome do Produto" class="produto-imagem">
+                </div>
+                <div class="produto-info">
+                    <h3>Caixa Personalizada</h3>
+                    <p>Dimensões: 30x20x15cm</p>
+                    <span class="preco">R$ 24,90</span>
+                    <button class="btn-comprar">Comprar</button>
+                </div>
+            </div>
+            <div class="produto-card">
+                <div class="produto-imagem-container">
+                    <img src="img/caixa-abas" alt="Nome do Produto" class="produto-imagem">
+                </div>
+                <div class="produto-info">
+                    <h3>Caixa Personalizada</h3>
+                    <p>Dimensões: 30x20x15cm</p>
+                    <span class="preco">R$ 24,90</span>
+                    <button class="btn-comprar">Comprar</button>
+                </div>
+            </div>
+            <div class="produto-card">
+                <div class="produto-imagem-container">
+                    <img src="img/caixa-abas" alt="Nome do Produto" class="produto-imagem">
+                </div>
+                <div class="produto-info">
+                    <h3>Caixa Personalizada</h3>
+                    <p>Dimensões: 30x20x15cm</p>
+                    <span class="preco">R$ 24,90</span>
+                    <button class="btn-comprar">Comprar</button>
+                </div>
+            </div>
+            <div class="produto-card">
+                <div class="produto-imagem-container">
+                    <img src="img/caixa-abas" alt="Nome do Produto" class="produto-imagem">
+                </div>
+                <div class="produto-info">
+                    <h3>Caixa Personalizada</h3>
+                    <p>Dimensões: 30x20x15cm</p>
+                    <span class="preco">R$ 24,90</span>
+                    <button class="btn-comprar">Comprar</button>
+                </div>
+            </div>
+            <div class="produto-card">
+                <div class="produto-imagem-container">
+                    <img src="img/caixa-abas" alt="Nome do Produto" class="produto-imagem">
+                </div>
+                <div class="produto-info">
+                    <h3>Caixa Personalizada</h3>
+                    <p>Dimensões: 30x20x15cm</p>
+                    <span class="preco">R$ 24,90</span>
+                    <button class="btn-comprar">Comprar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
 
-  <footer>Prototipo • Arraste para girar • Scroll para zoom</footer>
+  <!-- Sobre a Empresa -->
+  <section id="sobre" class="sobre-section">
+    <div class="container">
+      <div class="sobre-content">
+        <div class="sobre-texto">
+          <h2>Sobre Nossa Empresa</h2>
+          <p>Há mais de 15 anos no mercado, somos especialistas em soluções de embalagens personalizadas...</p>
+          <p>Nossa missão é oferecer produtos de qualidade que atendam às necessidades específicas de cada cliente...</p>
+        </div>
+        <div class="sobre-qualidades">
+        <div class="qualidade-card">
+          <h3>Qualidade Premium</h3>
+          <p>Materiais duráveis e resistentes</p>
+        </div>
+        
+        <div class="qualidade-card">
+          <h3>Entrega Rápida</h3>
+          <p>Produção ágil e entregas pontuais</p>
+        </div>
+        
+        <div class="qualidade-card">
+          <h3>Personalização</h3>
+          <p>Soluções sob medida para cada cliente</p>
+        </div>
+        
+        <div class="qualidade-card">
+          <h3>Suporte Especializado</h3>
+          <p>Atendimento técnico qualificado</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- three.js e OrbitControls - versões atualizadas -->
+  <!-- Parceiros -->
+  <section class="parceiros-section">
+    <div class="container-parceiros">
+      <h2>Nossos Parceiros</h2>
+      <div class="parceiros-logos">
+        <img src="img/camelo.jpg" alt="Parceiro 1">
+        <img src="img/rossetti.png" alt="Parceiro 2">
+        <img src="img/villaouro.webp" alt="Parceiro 2">
+        <img src="img/wepink.jpg" alt="Parceiro 2">
+        <!-- Mais logos -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 Cartonagem Rodrigues LTDA. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
   <script src="script.js"></script>
-    
 </body>
 </html>

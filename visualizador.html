@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Visualizador 3D de Caixa (Papelão Realista)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+  <div id="canvas-wrap"></div>
+
+  <div id="ui">
+    <h3>Visualizador de Caixa — Papelão</h3>
+
+    <label>Largura (mm)</label>
+    <input id="input-width" type="number" min="10" value="150">
+
+    <label>Comprimento / Profundidade (mm)</label>
+    <input id="input-depth" type="number" min="10" value="120">
+
+    <label>Altura (mm)</label>
+    <input id="input-height" type="number" min="5" value="80">
+
+    <div class="row">
+      <button id="apply-dim" class="compact">Aplicar Dimensões</button>
+      <button id="fit" class="compact secondary">Enquadrar</button>
+    </div>
+
+    <label>Cor base do papelão</label>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <input id="color-picker" type="color" value="#d39b45">
+      <small class="small-muted">Cor base (influencia a textura)</small>
+    </div>
+
+    <label>Upload de Imagem / Logo</label>
+    <input id="upload" type="file" accept="image/*">
+    <label>Aplicar em</label>
+    <select id="face-select">
+      <option value="all">Todas as faces</option>
+      <option value="front">Frente (+Z)</option>
+      <option value="back">Traseira (-Z)</option>
+      <option value="left">Lateral esquerda (-X)</option>
+      <option value="right">Lateral direita (+X)</option>
+      <option value="top">Topo (+Y)</option>
+      <option value="bottom">Base (-Y)</option>
+    </select>
+
+    <label>Posição / Escala da Imagem (apenas face selecionada)</label>
+    <div class="controls-grid">
+      <input id="img-scale" type="number" value="0.6" step="0.05" min="0.05" title="escala">
+      <input id="img-offset-x" type="number" value="0" step="1" title="offsetX">
+      <input id="img-offset-y" type="number" value="0" step="1" title="offsetY">
+      <button id="apply-texture" class="compact">Aplicar Imagem</button>
+    </div>
+    <div class="row">
+      <button id="remove-texture" class="secondary compact">Remover Imagem</button>
+      <button id="toggle-wire" class="secondary compact">Wireframe</button>
+    </div>
+
+    <label>Opções</label>
+    <div class="row">
+      <button id="export" class="compact">Exportar Screenshot</button>
+      <button id="download-dieline" class="compact secondary">Baixar Dieline (simples)</button>
+    </div>
+
+    <small style="margin-top:8px;" class="small-muted">
+      Dica: Use PNG com fundo transparente para logos. Se quiser dieline/uv real para impressão, eu gero um .glb UV-unwrapped posteriormente.
+    </small>
+  </div>
+
+  <footer>Prototipo • Arraste para girar • Scroll para zoom</footer>
+
+  <!-- three.js e OrbitControls - versões atualizadas -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+  <script src="script.js"></script>
+    
+</body>
+</html>

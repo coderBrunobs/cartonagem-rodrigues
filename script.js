@@ -60,7 +60,7 @@
   const faceMap = { right:0, left:1, top:2, bottom:3, front:4, back:5 };
 
   // ---------- Funções utilitárias de textura (canvas) ----------
-  function makeCardboardCanvas(w=1024, h=1024, baseColor='#d39b45', drawDieline=true) {
+function makeCardboardCanvas(w=1024, h=1024, baseColor='#d39b45', drawDieline=true) {
     const c = document.createElement('canvas');
     c.width = w; c.height = h;
     const ctx = c.getContext('2d');
@@ -77,16 +77,7 @@
     }
 
     // faint streaks
-    ctx.globalAlpha = 0.08;
-    for (let i=0;i<6;i++){
-      ctx.beginPath();
-      ctx.moveTo(0, Math.random()*h);
-      ctx.quadraticCurveTo(w*0.5, Math.random()*h, w, Math.random()*h);
-      ctx.lineWidth = 40 + Math.random()*120;
-      ctx.strokeStyle = '#000';
-      ctx.stroke();
-    }
-    ctx.globalAlpha = 1;
+    
 
     // subtle vignette
     const grad = ctx.createRadialGradient(w/2, h/2, Math.min(w,h)/4, w/2, h/2, Math.max(w,h)/1.2);
@@ -126,7 +117,7 @@
     ctx.putImageData(imgd, 0,0);
 
     return c;
-  }
+}
 
   // quick normal map from grayscale canvas (very simple)
   function makeNormalMapFromCanvas(srcCanvas) {
@@ -412,3 +403,85 @@
 
   // ---------- Mensagem de prontidão ----------
   console.log('Visualizador pronto — caixa criada. Use os controles à direita.');
+
+  // Carrossel
+  $('.carrossel').slick({
+  dots: true,
+  infinite: true,
+  speed: 300,
+  slidesToShow: 4, // Mostrar mais cards simultaneamente
+  slidesToScroll: 1,
+  centerMode: false,
+  focusOnSelect: false,
+  responsive: [
+    {
+      breakpoint: 1200,
+      settings: {
+        slidesToShow: 3
+      }
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        centerMode: true,
+        centerPadding: '20px'
+      }
+    }
+  ]
+});
+
+// Menu Hamburguer
+document.addEventListener('DOMContentLoaded', function() {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('.nav');
+  const navOverlay = document.createElement('div');
+  navOverlay.className = 'nav-overlay';
+  document.body.appendChild(navOverlay);
+  
+  // Abrir/fechar menu
+  menuToggle.addEventListener('click', function() {
+    this.classList.toggle('active');
+    nav.classList.toggle('active');
+    navOverlay.classList.toggle('active');
+    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+    this.setAttribute('aria-expanded', nav.classList.contains('active'));
+  });
+  
+  // Fechar ao clicar no overlay
+  navOverlay.addEventListener('click', function() {
+    menuToggle.classList.remove('active');
+    nav.classList.remove('active');
+    this.classList.remove('active');
+    document.body.style.overflow = '';
+    menuToggle.setAttribute('aria-expanded', 'false');
+  });
+  
+  // Fechar ao clicar em um link
+  document.querySelectorAll('.nav a').forEach(link => {
+    link.addEventListener('click', function() {
+      menuToggle.classList.remove('active');
+      nav.classList.remove('active');
+      navOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+  
+  // Fechar ao redimensionar para desktop
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768) {
+      menuToggle.classList.remove('active');
+      nav.classList.remove('active');
+      navOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+});
