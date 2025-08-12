@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #2b7a4a;
+  --primary-color: #1e5a36;
   --secondary-color: #6b7280;
   --background-color: #eef0f2;
   --text-color: #333;
@@ -14,6 +14,9 @@ body {
   color: var(--text-color);
   background: var(--background-color);
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  
 }
 
 .container {
@@ -24,6 +27,7 @@ body {
 
 /* Header */
 .header {
+  position: fixed;
   top: 0;
   width: 100%;
   background: white;
@@ -32,15 +36,16 @@ body {
   padding: 15px 0;
 }
 
-.header .container {
+.container-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-between; 
+  align-items: right;
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
 }
 
+/* Logo */
 .logo {
   display: flex;
   align-items: center;
@@ -48,8 +53,7 @@ body {
 }
 
 .logo-img {
-  height: 50px;
-  width: auto;
+  height: 40px;
 }
 
 .logo-text {
@@ -66,6 +70,7 @@ body {
   cursor: pointer;
   padding: 10px;
   z-index: 1001;
+  
 }
 
 .hamburger {
@@ -74,7 +79,6 @@ body {
   height: 3px;
   background: var(--primary-color);
   position: relative;
-  transition: all 0.3s ease;
 }
 
 .hamburger:before,
@@ -84,7 +88,6 @@ body {
   width: 100%;
   height: 100%;
   background: var(--primary-color);
-  transition: all 0.3s ease;
 }
 
 .hamburger:before {
@@ -106,30 +109,7 @@ body {
   text-decoration: none;
   color: var(--text-color);
   font-weight: 500;
-  transition: color 0.3s;
-  padding: 5px 0;
-  position: relative;
 }
-
-.nav a:hover {
-  color: var(--primary-color);
-}
-
-.nav a:after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--primary-color);
-  transition: width 0.3s;
-}
-
-.nav a:hover:after {
-  width: 100%;
-}
-
 
 /* Banner */
 .banner {
@@ -170,25 +150,29 @@ body {
   background: var(--white);
 }
 
+/* Container principal */
 .visualizador-wrapper {
   display: flex;
-  margin-top: 30px;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  flex-direction: column; /* Padrão: coluna (mobile first) */
+  width: 100%;
+  height: 100vh;
 }
 
+/* Canvas 3D */
 #canvas-wrap {
+  width: 100%;
   flex: 1;
-  height: 500px;
+  min-height: 50vh; /* Mínimo de altura para a visualização */
 }
 
+/* Painel de controles */
 #ui {
-  width: var(--panel-w);
-  height: 500px;
+  width: 100%;
   background: rgba(255,255,255,0.98);
-  padding: 14px;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  padding: 15px;
   overflow-y: auto;
+  max-height: 50vh; /* Limita a altura dos controles */
 }
 
 /* Visualizador */
@@ -375,72 +359,70 @@ button.secondary { background:#6b7280; }
 
 /* Responsivo */
 @media (max-width: 768px) {
+  
   .visualizador-wrapper {
     flex-direction: column;
+   
   }
   
   #ui {
     width: 100%;
-  }
     
-   .menu-toggle {
-    display: block;
+    box-sizing: border-box;
+  }
+
+  .header {
+    padding: 10px 0;
   }
   
+  .container-header{
+    position: relative; /* Container como referência para posicionamento */
+  }
+  
+  .logo {
+    flex-grow: 1; /* Ocupa todo espaço disponível */
+  }
+  
+  .menu-toggle {
+    display: flex; /* Mudamos para flex para melhor controle */
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Alterado de absolute para relative */
+    right: -20%;
+    
+    padding: 8px;
+    z-index: 1001;
+    background: none;
+    border: none;
+  }
+  
+  /* Garante que o logo não cresça demais */
+  .logo-img {
+    max-height: 35px;
+  }
+  
+  /* Esconde a navegação desktop */
   .nav {
+    display: none;
+  }
+  
+  /* Estilo quando menu está ativo */
+  .nav.active {
+    display: flex;
     position: fixed;
-    top: 0;
-    right: -100%;
-    width: 80%;
-    max-width: 300px;
-    height: 100vh;
+    right: 0;
+    width: 150px;
+    height: auto;
     background: white;
     flex-direction: column;
-    justify-content: right;
-    gap: 25px;
+    justify-content: flex-start;
+    padding-top: 70px;
+    padding-bottom: 10px;
     box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    transition: right 0.3s ease;
     z-index: 1000;
-    padding: 80px 20px 20px;
   }
   
-  .nav.active {
-    right: 0;
-  }
-  
-  .menu-toggle.active .hamburger {
-    background: transparent;
-  }
-  
-  .menu-toggle.active .hamburger:before {
-    transform: rotate(45deg);
-    top: 0;
-  }
-  
-  .menu-toggle.active .hamburger:after {
-    transform: rotate(-45deg);
-    top: 0;
-  }
-  
-  /* Overlay */
-  .nav-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 999;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-  }
-  
-  .nav-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  
+    
   /* Ajuste de conteúdo */
   main {
     margin-top: 70px;
@@ -464,5 +446,53 @@ button.secondary { background:#6b7280; }
   /* Reset dos grid-areas em mobile */
   .qualidade-card:nth-child(n) {
     grid-area: auto;
+  }
+ 
+}
+
+/* Layout para desktop */
+@media (min-width: 768px) {
+  .visualizador-wrapper {
+    flex-direction: row; /* Lateral em desktop */
+    height: 500px;
+  }
+  
+  #canvas-wrap {
+    flex: 1;
+    height: 100%;
+  }
+  
+  #ui {
+    width: 360px;
+    max-height: 100%;
+  }
+}
+
+/* Ajustes específicos para mobile */
+@media (max-width: 767px) {
+  #ui {
+    position: relative;
+    z-index: 10;
+  }
+  
+  /* Melhoria para controles em mobile */
+  .controls-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  button {
+    padding: 12px;
+    font-size: 16px;
+  }
+  
+  input, select {
+    font-size: 16px;
+    padding: 10px;
   }
 }

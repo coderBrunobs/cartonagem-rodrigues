@@ -401,6 +401,40 @@ function makeCardboardCanvas(w=1024, h=1024, baseColor='#d39b45', drawDieline=tr
   }
   animate();
 
+  // Função para redimensionamento responsivo
+function handleResize() {
+  const container = document.getElementById('canvas-wrap');
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+  
+  // Ajusta o canvas
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+  renderer.setSize(width, height);
+  
+  // Otimizações para mobile
+  if (window.innerWidth < 768) {
+    controls.rotateSpeed = 0.5;
+    controls.panSpeed = 0.5;
+    controls.enableZoom = false;
+  } else {
+    controls.rotateSpeed = 1.0;
+    controls.panSpeed = 1.0;
+    controls.enableZoom = true;
+  }
+}
+
+// Inicialização
+window.addEventListener('load', function() {
+  // ... seu código de inicialização existente ...
+  
+  // Configuração inicial
+  handleResize();
+  
+  // Listener para redimensionamento
+  window.addEventListener('resize', handleResize);
+});
+
   // ---------- Mensagem de prontidão ----------
   console.log('Visualizador pronto — caixa criada. Use os controles à direita.');
 
@@ -441,47 +475,25 @@ function makeCardboardCanvas(w=1024, h=1024, baseColor='#d39b45', drawDieline=tr
 document.addEventListener('DOMContentLoaded', function() {
   const menuToggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.nav');
-  const navOverlay = document.createElement('div');
-  navOverlay.className = 'nav-overlay';
-  document.body.appendChild(navOverlay);
+  const header = document.querySelector('.header');
   
-  // Abrir/fechar menu
+  // Adiciona classe ao header para controle
   menuToggle.addEventListener('click', function() {
     this.classList.toggle('active');
     nav.classList.toggle('active');
-    navOverlay.classList.toggle('active');
+    header.classList.toggle('menu-open');
+    
+    // Bloqueia scroll quando menu está aberto
     document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
-    this.setAttribute('aria-expanded', nav.classList.contains('active'));
   });
   
-  // Fechar ao clicar no overlay
-  navOverlay.addEventListener('click', function() {
-    menuToggle.classList.remove('active');
-    nav.classList.remove('active');
-    this.classList.remove('active');
-    document.body.style.overflow = '';
-    menuToggle.setAttribute('aria-expanded', 'false');
-  });
-  
-  // Fechar ao clicar em um link
+  // Fecha menu ao clicar em links
   document.querySelectorAll('.nav a').forEach(link => {
-    link.addEventListener('click', function() {
+    link.addEventListener('click', () => {
       menuToggle.classList.remove('active');
       nav.classList.remove('active');
-      navOverlay.classList.remove('active');
+      header.classList.remove('menu-open');
       document.body.style.overflow = '';
-      menuToggle.setAttribute('aria-expanded', 'false');
     });
-  });
-  
-  // Fechar ao redimensionar para desktop
-  window.addEventListener('resize', function() {
-    if (window.innerWidth > 768) {
-      menuToggle.classList.remove('active');
-      nav.classList.remove('active');
-      navOverlay.classList.remove('active');
-      document.body.style.overflow = '';
-      menuToggle.setAttribute('aria-expanded', 'false');
-    }
   });
 });
