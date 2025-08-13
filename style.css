@@ -16,69 +16,238 @@ body {
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  
 }
 
 .container {
   width: 90%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
 /* Header */
+/* Container Principal */
 .header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: white;
+ background: white;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
   z-index: 1000;
-  padding: 15px 0;
 }
 
-.container-header {
+.header-container {
   display: flex;
-  justify-content: space-between; 
-  align-items: right;
-  width: 90%;
-  max-width: 1200px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 5%;
+  
   margin: 0 auto;
+  position: relative; /* Adicionado para melhor posicionamento */
 }
 
-/* Logo */
-.logo {
+/* Div da Esquerda - Logo */
+.header-logo {
   display: flex;
   align-items: center;
   gap: 10px;
+  /* Removido flex: 1 */
+  min-width: 150px;
+  /* Adicionado para manter espaço igual ao lado direito */
+  flex: 0 0 auto;
 }
 
 .logo-img {
   height: 40px;
+  width: auto;
 }
 
-.logo-text {
-  font-weight: 600;
-  color: var(--primary-color);
-  font-size: 1.2rem;
+
+/* Div do Meio - Barra de Pesquisa */
+.header-search {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px; /* Ajuste conforme necessário */
+  
+  padding: 0 10px;
 }
 
-/* Menu Hamburguer - Mobile */
+/* Container da barra de pesquisa */
+.search-bar {
+  display: flex;
+  width: 100%;
+  height: 40px; /* Altura fixa para alinhamento */
+  align-items: center; /* Garante que ambos tenham mesma altura */
+}
+
+/* Campo de input */
+.search-bar input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+  font-size: 14px;
+  border-right: none; /* Remove borda dupla */
+  height: 100%; /* Ocupa toda altura do container */
+  width: 100%;
+  box-sizing: border-box; /* Inclui padding na altura */
+  line-height: 1; /* Reset para evitar espaçamento */
+  margin: 0; /* Remove margens padrão */
+}
+
+/* Botão de submit */
+.search-bar button {
+  background: var(--primary-color);
+  color: white;
+  line-height: 1; /* Reset para evitar espaçamento */
+  margin: 0; /* Remove margens padrão */
+  padding: 0 15px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Mesma altura do input */
+  width: 40px; /* Largura fixa para o botão */
+  flex-shrink: 0; /* Evita que o botão diminua */
+}
+
+/* Ícone dentro do botão */
+
+
+/* Ícones e Menu Hamburguer */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  /* Removido flex: 1 */
+  flex: 0 0 auto;
+  margin-left: auto; /* Empurra para a direita */
+  
+}
+
+.login-tooltip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 100;
+  margin-top: 8px;
+  animation: fadeIn 0.2s ease;
+}
+
+.login-tooltip:before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #333 transparent;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Estilo base do ícone de login */
+.icon-link.login-link {
+  position: relative;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  padding: 8px;
+}
+
+.login-icon {
+  fill: var(--primary-color);
+  transition: transform 0.3s ease, fill 0.3s ease;
+}
+
+/* Efeitos hover/focus */
+.icon-link.login-link:hover,
+.icon-link.login-link:focus {
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+}
+
+.icon-link.login-link:hover .login-icon,
+.icon-link.login-link:focus .login-icon {
+  transform: scale(1.1);
+  fill: var(--primary-color-dark);
+}
+
+/* Badge para estado logado */
+.login-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
+  background-color: #4CAF50;
+  border-radius: 50%;
+  border: 2px solid white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.logged-in .login-badge {
+  opacity: 1;
+}
+
+
+
+/* Correção do cart count */
+.cart-icon {
+  position: relative;
+  display: flex;
+}
+
+.cart-count {
+  position: absolute;
+  top: -10px;  /* Ajuste fino para alinhamento vertical */
+  right: -10px; /* Ajuste fino para alinhamento horizontal */
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white; /* Adiciona borda para contraste */
+  box-sizing: border-box; /* Garante que a borda não aumente o tamanho */
+  z-index: 2; /* Garante que fique acima de outros elementos */
+}
+
+/* Menu Hamburguer (sempre visível) */
 .menu-toggle {
-  display: none;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 10px;
-  z-index: 1001;
-  
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
 }
 
 .hamburger {
   display: block;
-  width: 25px;
-  height: 3px;
+  width: 24px;
+  height: 2px;
   background: var(--primary-color);
   position: relative;
+  transition: all 0.3s ease;
 }
 
 .hamburger:before,
@@ -88,27 +257,82 @@ body {
   width: 100%;
   height: 100%;
   background: var(--primary-color);
+  transition: all 0.3s ease;
 }
 
 .hamburger:before {
-  top: -8px;
+  top: -6px;
 }
 
 .hamburger:after {
-  top: 8px;
+  top: 6px;
 }
 
-/* Navegação Desktop */
+/* Menu de Navegação */
 .nav {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+  padding: 15px;
+  border-radius: 0 0 0 4px;
+  transform: translateY(-10px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.nav.active {
   display: flex;
-  gap: 20px;
-  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .nav a {
-  text-decoration: none;
   color: var(--text-color);
+  text-decoration: none;
   font-weight: 500;
+  padding: 8px 15px;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.nav a:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+  display: none;
+}
+
+.nav-overlay.active {
+  display: block;
+}
+
+/* Estado ativo do menu hamburguer */
+.menu-toggle.active .hamburger {
+  background: transparent;
+}
+
+.menu-toggle.active .hamburger:before {
+  transform: rotate(45deg);
+  top: 0;
+}
+
+.menu-toggle.active .hamburger:after {
+  transform: rotate(-45deg);
+  top: 0;
 }
 
 /* Banner */
@@ -146,6 +370,7 @@ body {
 
 /* Seção do Visualizador */
 .visualizador-section {
+  width: 100%;
   padding: 30px 0;
   background: var(--white);
 }
@@ -371,13 +596,22 @@ button.secondary { background:#6b7280; }
     box-sizing: border-box;
   }
 
-  .header {
-    padding: 10px 0;
+   .header-container {
+    flex-wrap: wrap;
+    gap: 10px;
   }
   
-  .container-header{
-    position: relative; /* Container como referência para posicionamento */
+  .header-search {
+    order: 3;
+    width: 100%;
+    padding: 10px 0 0 0;
   }
+  
+  .logo-text {
+    display: none;
+  }
+  
+  
   
   .logo {
     flex-grow: 1; /* Ocupa todo espaço disponível */
@@ -388,7 +622,7 @@ button.secondary { background:#6b7280; }
     align-items: center;
     justify-content: center;
     position: relative; /* Alterado de absolute para relative */
-    right: -20%;
+    
     
     padding: 8px;
     z-index: 1001;
@@ -494,5 +728,150 @@ button.secondary { background:#6b7280; }
   input, select {
     font-size: 16px;
     padding: 10px;
+  }
+}
+/* ========== MEDIA QUERIES ========== */
+
+/* Tablet (768px - 992px) */
+@media (max-width: 992px) {
+  .header-search {
+    width: 35%;
+    min-width: 180px;
+  }
+  
+  .header-actions {
+    gap: 12px;
+  }
+}
+
+/* Tablet Pequeno (576px - 767px) */
+@media (max-width: 767px) {
+  .header-container {
+    padding: 10px 20px;
+    flex-wrap: wrap;
+  }
+  
+  .header-search {
+    position: static;
+    order: 3;
+    width: 100%;
+    transform: none;
+    left: auto;
+    padding: 10px 0 0 0;
+    margin-top: 10px;
+    min-width: 100%;
+  }
+  
+  .logo-img {
+    height: 35px;
+  }
+  
+  .header-actions {
+    margin-left: auto;
+  }
+  
+  .nav.active {
+    top: 80px;
+    right: 20px;
+  }
+}
+
+/* Mobile (até 575px) */
+@media (max-width: 575px) {
+
+  .banner {
+    margin-top: 70px;
+  }
+  .header-container {
+    padding: 8px 15px;
+  }
+  
+  .header-logo {
+    min-width: 100px;
+  }
+  
+  .logo-img {
+    height: 30px;
+  }
+  
+  .search-bar {
+    height: 36px;
+  }
+  
+  .search-bar input {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  
+  .header-actions {
+    gap: 8px;
+  }
+  
+
+  
+  
+  
+  .nav.active {
+    top: 70px;
+    right: 15px;
+    padding: 10px;
+  }
+  
+  .nav a {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile Pequeno (até 400px) */
+@media (max-width: 400px) {
+  .header-search {
+    margin-top: 8px;
+  }
+  
+  .cart-count {
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+  }
+  
+  .menu-toggle {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .hamburger,
+  .hamburger:before,
+  .hamburger:after {
+    width: 20px;
+    height: 2px;
+  }
+  
+  .hamburger:before {
+    top: -5px;
+  }
+  
+  .hamburger:after {
+    top: 5px;
+  }
+}
+
+/* Ajustes para mobile */
+@media (max-width: 767px) {
+  .cart-count {
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+    top: -2px;
+    right: -2px;
+  }
+}
+
+@media (max-width: 400px) {
+  .cart-count {
+    width: 14px;
+    height: 14px;
+    font-size: 9px;
+    border-width: 1px;
   }
 }

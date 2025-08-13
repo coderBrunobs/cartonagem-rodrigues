@@ -475,25 +475,74 @@ window.addEventListener('load', function() {
 document.addEventListener('DOMContentLoaded', function() {
   const menuToggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.nav');
-  const header = document.querySelector('.header');
   
-  // Adiciona classe ao header para controle
+  // Abrir/fechar menu
   menuToggle.addEventListener('click', function() {
     this.classList.toggle('active');
     nav.classList.toggle('active');
-    header.classList.toggle('menu-open');
     
-    // Bloqueia scroll quando menu está aberto
-    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+    // Bloquear scroll quando o menu está aberto
+    if (nav.classList.contains('active')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   });
   
-  // Fecha menu ao clicar em links
+  // Fechar menu ao clicar nos links
   document.querySelectorAll('.nav a').forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', function() {
       menuToggle.classList.remove('active');
       nav.classList.remove('active');
-      header.classList.remove('menu-open');
       document.body.style.overflow = '';
     });
   });
+  
+  // Fechar menu ao clicar fora
+  document.addEventListener('click', function(event) {
+    if (!event.target.closest('.header-container') && 
+        !event.target.closest('.nav')) {
+      menuToggle.classList.remove('active');
+      nav.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
 });
+
+// Adicione isso ao seu arquivo JS existente
+document.addEventListener('DOMContentLoaded', function() {
+  const loginLink = document.querySelector('.login-link');
+  
+  // Simulação de estado de login (substitua por sua lógica real)
+  let loggedIn = false;
+  
+  loginLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    // Alternar estado (apenas para demonstração)
+    loggedIn = !loggedIn;
+    this.classList.toggle('logged-in', loggedIn);
+    
+    // Aqui você adicionaria sua lógica real de login
+    console.log(loggedIn ? 'Usuário logado' : 'Usuário deslogado');
+  });
+  
+  // Tooltip acessível
+  loginLink.setAttribute('aria-label', 'Login');
+  loginLink.addEventListener('mouseenter', showLoginTooltip);
+  loginLink.addEventListener('focus', showLoginTooltip);
+  loginLink.addEventListener('mouseleave', hideLoginTooltip);
+  loginLink.addEventListener('blur', hideLoginTooltip);
+});
+
+function showLoginTooltip() {
+  const tooltip = document.createElement('div');
+  tooltip.className = 'login-tooltip';
+  tooltip.textContent = 'Acessar minha conta';
+  this.appendChild(tooltip);
+}
+
+function hideLoginTooltip() {
+  const tooltip = this.querySelector('.login-tooltip');
+  if (tooltip) this.removeChild(tooltip);
+}

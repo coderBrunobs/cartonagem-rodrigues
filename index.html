@@ -10,22 +10,55 @@
 </head>
 <body>
   <!-- Header -->
-  <header class="header">
-  <div class="container-header">
-    <div class="logo">
-      <img src="img/logo.png" alt="Cartonagem Rodrigues" class="logo-img">
-      <span class="logo-text">Cartonagem Rodrigues</span>
+<header class="header">
+  <div class="header-container">
+    <!-- Div da Esquerda - Logo -->
+    <div class="header-logo">
+      <img src="img/logo3.png" alt="Cartonagem Rodrigues" class="logo-img">
+      
     </div>
     
-    <button class="menu-toggle" aria-label="Menu mobile">
-      <span class="hamburger"></span>
-    </button>
+    <!-- Div do Meio - Barra de Pesquisa -->
+    <div class="header-search">
+        <form action="/pesquisar" method="get" class="search-bar">
+            <input type="search" name="q" placeholder="Pesquisar produtos..." required>
+            <button type="submit" aria-label="Pesquisar">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M19 19L13 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z" stroke="white" stroke-width="2"/>
+            </svg>
+            </button>
+        </form>
+    </div>
     
+     <!-- Ícones e Menu Hamburguer -->
+    <div class="header-actions">
+        <a href="#" class="icon-link login-link" aria-label="Login">
+            <svg class="icon login-icon" viewBox="0 0 24 24" width="24" height="24">
+                <path d="M12 3a4 4 0 0 0-4 4v2H6v12h12V9h-2V7a4 4 0 0 0-4-4zm0 2a2 2 0 0 1 2 2v2h-4V7a2 2 0 0 1 2-2zm-5 6h10v8H7v-8z"/>
+            </svg>
+            <span class="login-badge"></span>
+        </a>
+      
+        <a href="#" class="icon-link cart-icon" aria-label="Carrinho">
+            <svg class="icon" viewBox="0 0 24 24" width="24" height="24">
+                <path d="M8 22a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4zM3 3h2l2 12h12l2-8H7m0 0H3"/>
+            </svg>
+            <span class="cart-count">0</span> <!-- Número deve estar aqui -->
+        </a>
+      
+      <!-- Menu Hamburguer (visível sempre) -->
+      <button class="menu-toggle" aria-label="Menu principal">
+        <span class="hamburger"></span>
+      </button>
+    </div>
+  
+  
+    <!-- Menu de Navegação -->
     <nav class="nav">
-      <a href="#visualizador">Visualizador</a>
-      <a href="#produtos">Produtos</a>
-      <a href="#sobre">Sobre</a>
-      <a href="#contato" class="btn-primary">Contato</a>
+        <a href="#visualizador">Visualizador</a>
+        <a href="#produtos">Produtos</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
     </nav>
   </div>
 </header>
